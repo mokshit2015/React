@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title>Second</title>
+    <script type="text/babel">
+        class Calc extends React.Component{
+
+            constructor(props){
+                super(props);
+                this.state = {
+                no1 : 0,
+                no2 : 0,
+                ans : 0
+                }
+
+            this.val1 = this.val1.bind(this);
+            //this.val2 = this.val2.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            
+
+            val1(event){
+
+                this.setState({ [event.target.name]: event.target.value });
+                 
+            }
+
+            // val2(event){
+            //     this.setState({no2 : Number(event.target.value)});
+            // }
+
+            handleSubmit(event){
+                if(event.target.value==='+')
+                {
+                    this.setState({ans : Number(this.state.no1) + Number(this.state.no2)});
+                }
+                if(event.target.value==='-')
+                {
+                    this.setState({ans : Number(this.state.no1) - Number(this.state.no2)});
+                }
+                if(event.target.value==='*')
+                {
+                    this.setState({ans : Number(this.state.no1) * Number(this.state.no2)});
+                }
+                if(event.target.value==='/')
+                {
+                    this.setState({ans : Number(this.state.no1) / Number(this.state.no2)});
+                }
+                
+            }
+
+
+            render(){
+                return(
+                <div>
+                <form >
+                    <label> No 1 : </label>
+                    <input type="text" name="no1" value={this.state.no1} onChange = {this.val1} />    
+                    <label> No 2 : </label>
+                    <input type="text" name="no2" value={this.state.no2} onChange = {this.val1} />
+                    
+                   
+                </form>
+                <input type="submit" value="+" onClick= {this.handleSubmit} /> 
+                <input type="submit" value="-" onClick= {this.handleSubmit} /> 
+                <input type="submit" value="*" onClick= {this.handleSubmit} /> 
+                <input type="submit" value="/" onClick= {this.handleSubmit} />      
+                <h3 > Answer : {  this.state.ans }</h3>
+                </div>
+                );
+            }
+        }
+        ReactDOM.render(<Calc />,document.getElementById('root'));
+    </script>
+</head>
+<body>
+       <div id='root'></div>   
+</body>
+</html>

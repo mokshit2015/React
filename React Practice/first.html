@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <title>React First App</title>
+    <script type="text/babel">
+        class Greetings extends React.Component{
+            
+            state = {
+                  a : 1,
+                  b: 5,
+                  c: 6,
+                  d: -4
+            };
+            
+            changeData = () => {
+                this.setState((state) => {
+                    return { a : state.a + 1};
+                });
+            };
+
+            changeB = () => {
+                this.setState({b : this.state.b + 1});
+            };
+
+            decrease = () => {
+                this.setState({d: this.state.a - this.state.b})
+            }
+
+           render(){
+               return(
+                <div>
+                    <h1> Hello World ! a =  {this.state.a}</h1>
+                    <h1> Hello World ! b = {this.state.b}</h1>
+                    <h1>  Addition  { this.state.c }</h1>
+                    <h1>  Minus { this.state.d }</h1>
+                    <button type="button" onClick={this.changeData}> Submit </button>
+                    <button type="button" onClick={this.changeB}> Submit B </button>
+                    <button type="button" onClick={ () => {
+                        this.setState({c : this.state.a + this.state.b }); 
+                    }}> Answer </button>
+                    <button type="button" onClick={this.decrease}> Minus </button>
+                    <Two s={this.state} />
+                </div>
+                
+               );
+               
+           }
+        }
+        class Two extends React.Component{
+
+            constructor(props){
+                super(props);
+                
+            }
+            state = {
+                ab : this.props.s.a
+            };
+            render(){
+                return(
+                    <div>
+                    
+                    <h2> Second Class {this.props.s.a + 1} </h2>
+                    
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(<Greetings />, document.getElementById('root'));
+    </script>
+
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
