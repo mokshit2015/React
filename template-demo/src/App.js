@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ["Moksh", "Shah", "Meet", "Hardik", "khushbu", "Vivek"]
+      data: ["Nadir", "Bhoomi", "Meet", "Hardik", "khushbu", "Vivek"]
     }
   }
 
