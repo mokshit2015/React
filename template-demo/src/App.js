@@ -4,53 +4,40 @@ import './App.css';
 import Footer from './Footer.js';
 import Middle from './Middle.js';
 
-class App extends React.Component
-{
-  constructor(props){
+class App extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      a : 1,
-      data : ["Moksh","Shah","Meet","Hardik","khushbu","Vivek"]
+      data: ["Moksh", "Shah", "Meet", "Hardik", "khushbu", "Vivek"]
     }
   }
 
-  multipleDisplay = () => {
-      return(
-        this.state.data.map((a) => <Middle name={a} />)        
-      )
-       
-  }
+  multipleDisplay = () => this.state.data.map((a) => <Middle name={a} />)
 
-  render(){
-    return(
-        <div>
-          <div className="header">
-            <div className="logo">
-              <h3> Mokshit Shah</h3>
-            </div>
-            <div className="menu">
-                <ul className="options">
-                  <li> Home </li>
-                  <li> About Us </li>
-                  <li> Products </li>
-                  <li> Contact </li>
-                </ul>
-            </div>
+  render() {
+    return (
+      <div>
+        <div className="header">
+          <div className="logo">
+            <h3> Mokshit Shah</h3>
           </div>
-          <div className="middle-area">
-          
-
-          {this.multipleDisplay()}
-          
+          <div className="menu">
+            <ul className="options">
+              <li> Home </li>
+              <li> About Us </li>
+              <li> Products </li>
+              <li> Contact </li>
+            </ul>
           </div>
-
-          
-
-        <Footer />
         </div>
-        
+        <div className="middle-area">
+          {this.multipleDisplay()}
+        </div>
+        <Footer />
+      </div>
+
     );
   }
 }
-  
-  export default App;
+
+export default App;
