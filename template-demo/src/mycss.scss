@@ -1,0 +1,81 @@
+$mycolor: #1a67fa;
+$fcolor: white;
+
+.header
+{
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+background-color: $mycolor;
+padding: 10px;
+color: $fcolor;
+// width: 100%;
+  
+}
+
+.middle-area{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.logo
+{
+margin-left: 20px;
+}
+
+.menu{
+  background-color: $mycolor;
+}
+
+.options
+{
+display: flex;
+flex-wrap: wrap;
+list-style: none;
+
+}
+.options li
+{
+margin-right: 30px;
+} 
+
+
+
+.card{
+  padding: 20px;
+  margin: 13px;
+  margin-top: 30px;
+  width: 300px;
+  min-height: 200px;
+  color: black;
+  border: 2px solid $mycolor;
+  border-radius: 5px;
+  box-shadow: 3px 3px 12px 3px $mycolor;
+}
+
+.title{
+  text-align: center;
+  font-weight: bold;
+  color: $mycolor;
+}
+
+.bottom-area{
+  padding: 5px;
+  margin-top: 20px;
+  background-color: $mycolor;
+  color: $fcolor;
+  
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .bottom-area{
+    padding: 5px;
+    margin-top: 10px;
+    background-color: $mycolor;
+    color: $fcolor;
+    width: 100%;
+    text-align: center;
+  } 
+}
