@@ -53,21 +53,21 @@ class SingleUser extends React.Component {
 	}
 
 	dataUpdateAPI = () => {
-		
-		axios.put(`https://reqres.in/api/users/${this.props.id}`)
+		const { updateFName,updateLName,updateEmail,updateImage } = this.state;
+		const { id } = this.props;
+		axios.put(`https://reqres.in/api/users/${id}`)
       .then(res => {
 				this.setState({
 					show : false,
 					Single : {
-						first_name : this.state.updateFName,
-						last_name : this.state.updateLName,
-						email : this.state.updateEmail,
-						id : Number (this.props.id),
-						avatar : this.state.updateImage
+						first_name : updateFName,
+						last_name : updateLName,
+						email : updateEmail,
+						id : Number (id),
+						avatar : updateImage
 					}
 					
-				});
-				this.props.afterUpdateData(this.state.updateFName);
+				}, () => this.props.afterUpdateData(updateFName));
       })
 
 	}
@@ -87,15 +87,18 @@ class SingleUser extends React.Component {
 
 
 	render() {
-		return (this.props.id !== 0 &&
+		const { id } = this.props;
+		const { avatar,first_name,last_name,email } = this.state.Single;
+		const { show,updateFName,updateLName,updateEmail } = this.state;
+		return (id !== 0 &&
 			<>
 				<div className="user-card">
-					<img src={this.state.Single.avatar} className="img" />
-					<h2> {this.state.Single.first_name + " " + this.state.Single.last_name} </h2>
-					<h6> {this.state.Single.email} </h6	>
+					<img src={avatar} className="img" />
+					<h2> {first_name + " " +  last_name} </h2>
+					<h6> {email} </h6	>
 					<Button variant="outline-primary" className="small" onClick={this.handleShow}> <FontAwesomeIcon icon={faEdit} /> Edit </Button>
 				</div>
-				<Modal show={this.state.show} onHide={this.handleClose}>
+				<Modal show={show} onHide={this.handleClose}>
 					<Modal.Header closeButton>
 						<Modal.Title>Edit User Data</Modal.Title>
 					</Modal.Header>
@@ -107,7 +110,7 @@ class SingleUser extends React.Component {
 									First Name:
     							</Form.Label>
 								<Col sm="9">
-									<input type="text" name="updateFName" className="form-control" value={this.state.updateFName} onChange={this.dataUpdate} />
+									<input type="text" name="updateFName" className="form-control" value={updateFName} onChange={this.dataUpdate} />
 								</Col>
 							</Form.Group>
 							<Form.Group as={Row} controlId="formPlaintextEmail">
@@ -115,7 +118,7 @@ class SingleUser extends React.Component {
 									Last name :
     							</Form.Label>
 								<Col sm="9">
-									<input type="text" name="updateLName" className="form-control" value={this.state.updateLName} onChange={this.dataUpdate} />
+									<input type="text" name="updateLName" className="form-control" value={updateLName} onChange={this.dataUpdate} />
 								</Col>
 							</Form.Group>
 							<Form.Group as={Row} controlId="formPlaintextEmail">
@@ -123,7 +126,7 @@ class SingleUser extends React.Component {
 									Email :
     							</Form.Label>
 								<Col sm="9">
-									<input type="text" name="updateEmail" className="form-control" value={this.state.updateEmail} onChange={this.dataUpdate} />
+									<input type="text" name="updateEmail" className="form-control" value={updateEmail} onChange={this.dataUpdate} />
 								</Col>
 							</Form.Group>
 

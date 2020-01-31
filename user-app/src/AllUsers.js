@@ -13,7 +13,8 @@ class AllUsers extends React.Component {
 			user: [],
 			show: false,
 			delete_id: 0,
-			first_name: ''
+			first_name: '',
+			updateFlag: false
 		}
 	}
 
@@ -21,7 +22,6 @@ class AllUsers extends React.Component {
 		axios.get(`https://reqres.in/api/users?page=2`)
 			.then(res => this.setState({ user: res.data.data }))
 			.catch((err) => console.log("error"));
-
 	}
 
 	handleShow = (id, fname) => {
@@ -50,19 +50,41 @@ class AllUsers extends React.Component {
 		this.setState({
 			user: this.state.user.filter(name => name.id !== this.state.delete_id)
 		})
-
 	}
 
-	render() {
+	componentWillReceiveProps(props){
+			this.setState({
+				updateFlag : props.updateFlag
+			})
+	}
 
+	afterUpdateArray = () => {
+		 const {id,newFname} = this.props;
+		// const userData = this.state.user.map(data => data.id === id ? data.first_name = newFname : data);
+		// console.log("id, name", id, newFname, userData);
+		// this.setState({
+		// 	user: userData,
+		// 	updateFlag : false																								
+		// }, ()=> console.log("updated", this.state.user))
+
+		const usersData = [...this.state.user];
+    const index = usersData.findIndex(data => data.id === id);
+    usersData[index].first_name = newFname;
+		this.setState({user: usersData, updateFlag : false});
+		console.log(this.state.user);
+	}	
+
+	render() {
+		const { updateFlag,user,show,first_name } = this.state;
 		return (
 			<>
-
+				{updateFlag && this.afterUpdateArray()}		
 				{
-					this.state.user.map((data, i) => {
-						return <div className="name">
-							<Button key={i} variant="outline-primary" className="big" id={data.id} onClick={this.props.findUser}>{data.first_name}</Button>
-							<Button variant="outline-danger" className="small" onClick={() => this.handleShow(data.id, data.first_name)}> <FontAwesomeIcon icon={faTrashAlt} /> </Button>
+					 
+					user.map((data, i) => {
+						return <div className="name" key={i}>
+							<Button  variant="outline-primary" className="big" id={data.id} onClick={this.props.findUser}>{data.first_name}</Button>
+							<Button  variant="outline-danger" className="small" onClick={() => this.handleShow(data.id, data.first_name)}> <FontAwesomeIcon icon={faTrashAlt} /> </Button>
 						</div>
 					}
 					)
@@ -70,11 +92,11 @@ class AllUsers extends React.Component {
 				}
 
 
-				<Modal show={this.state.show} onHide={this.handleClose}>
+				<Modal show={show} onHide={this.handleClose}>
 					<Modal.Header closeButton>
 						<Modal.Title>Do You Want to Delete?</Modal.Title>
 					</Modal.Header>
-					<Modal.Body>User : {this.state.first_name}</Modal.Body>
+					<Modal.Body>User : {first_name}</Modal.Body>
 					<Modal.Footer>
 						<Button variant="secondary" onClick={this.handleClose}>
 							No

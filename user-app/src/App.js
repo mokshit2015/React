@@ -10,16 +10,19 @@ class App extends React.Component {
     this.state = {
       id: 0,
       show: false,
-      newFname:''
+      newFname: '',
+      updateFlag: false
     }
   }
 
   afterUpdateData = (newData) => {
+    console.log("1")
     this.setState({
-      newFname : newData
+      // newFname: newData,
+      // updateFlag: true
     })
-    
-  } 
+
+  }
 
 
   findUser = (event) => {
@@ -30,15 +33,20 @@ class App extends React.Component {
   }
 
   render() {
+    const { updateFlag,id,newFname } = this.state;
     return (
       <div className="flexContainer">
         <div className="users">
           <center><h2> User List </h2></center>
-          <AllUsers  id={this.state.id} findUser={this.findUser} 	newFname={this.newFname}/>
+          <AllUsers updateFlag={updateFlag}
+            id={id}
+            findUser={this.findUser}
+            newFname={newFname}
+          />
         </div>
         <div className="singleUser">
           <center><h2> Profile </h2></center>
-          <SingleUser id={this.state.id}  afterUpdateData={this.afterUpdateData}/>
+          <SingleUser id={id} afterUpdateData={this.afterUpdateData} />
         </div>
       </div>
     );
